@@ -1,0 +1,29 @@
+{
+  "name": "blog-backend",
+  "version": "1.0.0",
+  "description": "My personal blog backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonasFreireAlcantara/blog-backend.git"
+  },
+  "keywords": [
+    "blog",
+    "backend",
+    "express",
+    "node"
+  ],
+  "author": "Jonas Freire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonasFreireAlcantara/blog-backend/issues"
+  },
+  "homepage": "https://github.com/JonasFreireAlcantara/blog-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
