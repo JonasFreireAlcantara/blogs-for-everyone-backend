@@ -9,20 +9,34 @@ module.exports = {
     },
 
     async create(req, res) {
-        const { postDate, title, elements } = req.body;
+        const { postDate, categoryId, title, elements } = req.body;
 
-        if (!postDate || !title || !elements) {
-            return res.json({ error: "Post bad format" });
+        if (!postDate || !categoryId || !title || !elements) {
+            return res.json({ error: "bad format" });
         }
 
-        const newPost = await Post.create(req.body);
-        return res.json(newPost);
+        const desiredPost = {
+            postDate,
+            category: categoryId,
+            title,
+            elements
+        };
+
+        const createdPost = await Post.create(desiredPost);
+        return res.json(createdPost);
     },
 
     async show(req, res) {
-        const { post_id } = req.params;
+        const { postId } = req.params;
 
-        const post = await Post.findById(post_id);
+        const post = await Post.findById(postId);
+        return res.json(post);
+    },
+
+    async remove(req, res) {
+        const { postId } = req.params;
+
+        const post = await Post.findByIdAndDelete(postId);
         return res.json(post);
     }
 

@@ -14,6 +14,17 @@ module.exports = {
         const posts = await Post.find({ category: category_id });
 
         return res.json(posts);
+    },
+
+    async create(req, res) {
+        const { name } = req.body;
+        
+        if (!name) {
+            return res.json({ error: "name not found" });
+        }
+
+        const categoryCreated = await Category.create({ name });
+        return res.json(categoryCreated);
     }
 
 };
