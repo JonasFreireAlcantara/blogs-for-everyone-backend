@@ -3,7 +3,13 @@ const routes = express.Router();
 
 const PostController = require('./controller/PostController');
 const CategoryController = require('./controller/CategoryController');
+const UserController = require('./controller/UserController');
 
+
+routes.get('/users', UserController.index);
+routes.get('/users/:userId', UserController.show);
+routes.post('/users', UserController.create);
+routes.delete('/users', UserController.delete);
 
 routes.get('/posts', PostController.index);
 routes.get('/posts/:postId', PostController.show);
