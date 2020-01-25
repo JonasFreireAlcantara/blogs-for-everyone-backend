@@ -10,9 +10,9 @@ module.exports = {
     },
 
     async show(req, res) {
-        const { category_id } = req.params;
-        const posts = await Post.find({ category: category_id });
-
+        const { categoryId } = req.params;
+        
+        const posts = await Post.find({ category: categoryId });
         return res.json(posts);
     },
 
@@ -20,7 +20,8 @@ module.exports = {
         const { name } = req.body;
         
         if (!name) {
-            return res.json({ error: "name not found" });
+            return res.status(400)
+                .json({ error: "You must inform the name" });
         }
 
         const categoryCreated = await Category.create({ name });

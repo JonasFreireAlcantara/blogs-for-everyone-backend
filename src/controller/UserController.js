@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const User = require('../model/User');
 
 
@@ -11,13 +13,18 @@ module.exports = {
     async show(req, res) {
         const { userId } = req.params;
 
-        const user = User.findById(userId);
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400)
+                .send('Invalid User Id format');
+        }
+
+        const user = await User.findById(userId);
         if (!user) {
-            res.status(404)
+            return res.status(404)
                 .send('User Not Found');
         }
 
-        res.json(user);
+        return res.json(user);
     },
 
     async create(req, res) {
@@ -43,6 +50,11 @@ module.exports = {
 
     async delete(req, rest) {
         const { userId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400)
+                .send('Invalid User Id format');
+        }
 
         const result = User.findByIdAndDelete(userId);
         console.log(result);
