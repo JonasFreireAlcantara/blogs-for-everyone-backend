@@ -9,15 +9,16 @@ module.exports = {
     },
 
     async create(req, res) {
-        const { postDate, categoryId, title, elements } = req.body;
+        const { postDate, author, category, title, elements } = req.body;
 
-        if (!postDate || !categoryId || !title || !elements) {
+        if (!postDate || !author || !category || !title || !elements) {
             return res.json({ error: "bad format" });
         }
 
         const desiredPost = {
             postDate,
-            category: categoryId,
+            author,
+            category,
             title,
             elements
         };

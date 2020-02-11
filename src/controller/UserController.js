@@ -48,7 +48,7 @@ module.exports = {
         });
     },
 
-    async delete(req, rest) {
+    async delete(req, res) {
         const { userId } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -56,9 +56,8 @@ module.exports = {
                 .send('Invalid User Id format');
         }
 
-        const result = User.findByIdAndDelete(userId);
-        console.log(result);
-        res.json(result)
+        const result = await User.findByIdAndDelete(userId);
+        return res.json(result)
     }
 
 };
