@@ -17,11 +17,6 @@ routes.delete('/users/:userId', UserController.delete);
 routes.get('/posts', PostController.index);
 routes.get('/posts/:postId', PostController.show);
 routes.post('/posts', PostController.create);
-/*
-TODO
-return 404 to element not find
-return 400 to bad formated ID
-*/
 routes.delete('/posts/:postId', PostController.remove);
 
 routes.get('/categories', CategoryController.index);

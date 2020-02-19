@@ -47,7 +47,15 @@ module.exports = {
   async remove(req, res) {
     const { postId } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+      return res.status(400).send('Invalid Post Id format');
+    }
+
     const post = await Post.findByIdAndDelete(postId);
+    if (!post) {
+        return res.status(404).send('Post not found');
+    }
+    
     return res.json(post);
   },
 };
