@@ -1,8 +1,7 @@
-const Category = require('../model/Category');
-const Post = require('../model/Post');
+const Category = require("../model/Category");
+const Post = require("../model/Post");
 
 module.exports = {
-
   async index(req, res) {
     const categories = await Category.find();
     return res.json(categories);
@@ -28,12 +27,12 @@ module.exports = {
     const { name, url, description } = req.body;
 
     if (!name || !url || !description) {
-      return res.status(400)
-        .json({ error: 'Fields you must inform: name, url, description' });
+      return res
+        .status(400)
+        .json({ error: "Fields you must inform: name, url, description" });
     }
 
     const categoryCreated = await Category.create({ name, url, description });
     return res.json(categoryCreated);
-  },
-
+  }
 };
