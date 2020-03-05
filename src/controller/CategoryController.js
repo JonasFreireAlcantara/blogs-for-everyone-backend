@@ -11,6 +11,12 @@ module.exports = {
     const { categoryUrl } = req.params;
 
     const category = await Category.findOne({ url: categoryUrl });
+
+    if (!category) {
+      const categoryDefault = await Category.findOne();
+      return res.json(categoryDefault);
+    }
+
     return res.json(category);
   },
 
