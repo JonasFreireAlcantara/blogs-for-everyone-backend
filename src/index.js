@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const { errors: celebrateErrors } = require('celebrate');
+
 const routes = require('./routes');
 const { cloudinaryConfig } = require('./middlewares/cloudinaryConfig');
 
@@ -32,6 +34,9 @@ app.use(cloudinaryConfig);
 
 // Routes pattern
 app.use('/api', routes);
+
+// Celebrate errors handler
+app.use(celebrateErrors());
 
 // Port configuration
 const port = process.env.PORT || 3333;

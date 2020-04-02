@@ -1,5 +1,6 @@
 const express = require('express');
 const { multerUploads } = require('./middlewares/multer');
+const CategoryValidations = require('./middlewares/validations/CategoryValidations');
 
 const routes = express.Router();
 
@@ -15,7 +16,7 @@ routes.delete('/posts/:postId', PostController.remove);
 routes.get('/categories', CategoryController.index);
 routes.get('/categories/:categoryUrl', CategoryController.show);
 routes.get('/categories/posts/:categoryUrl', CategoryController.findPostsOfCategory);
-routes.post('/categories', CategoryController.create);
+routes.post('/categories', CategoryValidations.create, CategoryController.create);
 
 routes.post('/image', multerUploads, ImageController.upload);
 

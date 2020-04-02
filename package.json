@@ -4,8 +4,8 @@
   "description": "My personal blog backend",
   "main": "src/index.js",
   "scripts": {
-    "development": "nodemon",
-    "production": "node src/index.js"
+    "start": "nodemon",
+    "prod": "node src/index.js"
   },
   "repository": {
     "type": "git",
