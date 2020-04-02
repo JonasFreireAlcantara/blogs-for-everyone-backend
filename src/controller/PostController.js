@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Post = require("../model/Post");
+const mongoose = require('mongoose');
+const Post = require('../model/Post');
 
 module.exports = {
   getActualDate() {
@@ -20,7 +20,7 @@ module.exports = {
     const { author, category, title, elements } = req.body;
 
     if (!author || !category || !title || !elements) {
-      return res.status(400).json({ error: "bad format" });
+      return res.status(400).json({ error: 'bad format' });
     }
 
     const desiredPost = {
@@ -28,7 +28,7 @@ module.exports = {
       author,
       category,
       title,
-      elements
+      elements,
     };
 
     const createdPost = await Post.create(desiredPost);
@@ -39,13 +39,13 @@ module.exports = {
     const { postId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(postId)) {
-      return res.status(400).send("Invalid Post Id format");
+      return res.status(400).send('Invalid Post Id format');
     }
 
     const post = await Post.findById(postId);
 
     if (!post) {
-      return res.status(404).send("Post not found");
+      return res.status(404).send('Post not found');
     }
 
     return res.json(post);
@@ -55,14 +55,14 @@ module.exports = {
     const { postId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(postId)) {
-      return res.status(400).send("Invalid Post Id format");
+      return res.status(400).send('Invalid Post Id format');
     }
 
     const post = await Post.findByIdAndDelete(postId);
     if (!post) {
-      return res.status(404).send("Post not found");
+      return res.status(404).send('Post not found');
     }
 
     return res.json(post);
-  }
+  },
 };

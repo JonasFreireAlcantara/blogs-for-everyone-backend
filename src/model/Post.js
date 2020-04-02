@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
   author: String,
@@ -7,7 +7,7 @@ const PostSchema = new mongoose.Schema({
 
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Category"
+    ref: 'Category',
   },
 
   title: String,
@@ -15,9 +15,9 @@ const PostSchema = new mongoose.Schema({
   elements: [
     {
       element: String,
-      content: String
-    }
-  ]
+      content: String,
+    },
+  ],
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model('Post', PostSchema);

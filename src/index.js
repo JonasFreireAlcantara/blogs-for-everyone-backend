@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const routes = require('./routes');
 const { cloudinaryConfig } = require('./middlewares/cloudinaryConfig');
 
-
 dotenv.config();
 const app = express();
 
@@ -17,7 +16,7 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  },
+  }
 );
 mongoose.connection.on('error', () => {
   console.log('database: connection error');

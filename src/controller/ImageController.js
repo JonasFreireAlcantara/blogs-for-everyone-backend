@@ -20,5 +20,4 @@ module.exports = {
       message: 'You must upload one image',
     });
   },
-
 };
