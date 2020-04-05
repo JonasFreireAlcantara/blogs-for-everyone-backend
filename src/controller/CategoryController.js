@@ -7,14 +7,16 @@ module.exports = {
     return res.json(categories);
   },
 
-  async show(req, res) {
+  async show(req, res, next) {
     const { categoryUrl } = req.params;
 
     const category = await Category.findOne({ url: categoryUrl });
 
     if (!category) {
-      const categoryDefault = await Category.findOne();
-      return res.json(categoryDefault);
+      return next({
+        statusCode: 404,
+        message: 'error in CategoryController',
+      });
     }
 
     return res.json(category);

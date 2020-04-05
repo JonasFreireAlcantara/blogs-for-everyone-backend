@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+
 const { errors: celebrateErrors } = require('celebrate');
+const { errors: personalErrors } = require('./middlewares/errors');
 
 const routes = require('./routes');
 const { cloudinaryConfig } = require('./middlewares/cloudinaryConfig');
@@ -37,6 +39,7 @@ app.use('/api', routes);
 
 // Celebrate errors handler
 app.use(celebrateErrors());
+app.use(personalErrors());
 
 // Port configuration
 const port = process.env.PORT || 3333;

@@ -19,10 +19,6 @@ module.exports = {
   async create(req, res) {
     const { author, category, title, elements } = req.body;
 
-    if (!author || !category || !title || !elements) {
-      return res.status(400).json({ error: 'bad format' });
-    }
-
     const desiredPost = {
       postDate: module.exports.getActualDate(),
       author,
@@ -35,34 +31,49 @@ module.exports = {
     return res.json(createdPost);
   },
 
-  async show(req, res) {
+  async show(req, res, next) {
     const { postId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(postId)) {
-      return res.status(400).send('Invalid Post Id format');
+      return next({
+        statusCode: 404,
+        message: 'Invalid post ID',
+      });
     }
 
     const post = await Post.findById(postId);
 
     if (!post) {
-      return res.status(404).send('Post not found');
+      return next({
+        statusCode: 404,
+        message: 'Post not found',
+      });
     }
 
     return res.json(post);
   },
 
-  async remove(req, res) {
+  async remove(req, res, next) {
     const { postId } = req.params;
 
+    console.log(postId);
+
     if (!mongoose.Types.ObjectId.isValid(postId)) {
-      return res.status(400).send('Invalid Post Id format');
+      return next({
+        statusCode: 404,
+        message: 'Invalid post ID',
+      });
     }
 
     const post = await Post.findByIdAndDelete(postId);
+
     if (!post) {
-      return res.status(404).send('Post not found');
+      return next({
+        statusCode: 404,
+        message: 'Post not found',
+      });
     }
 
-    return res.json(post);
+    return res.status(204).send();
   },
 };
