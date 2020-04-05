@@ -31,10 +31,17 @@ module.exports = {
     return res.json(posts);
   },
 
-  async create(req, res) {
+  async create(req, res, next) {
     const { name, url, description } = req.body;
 
-    // TODO validate if there exists a category
+    const category = await Category.findOne({ url });
+
+    if (category) {
+      return next({
+        statusCode: 409,
+        message: `Already exists a category with such url: '${url}'`,
+      });
+    }
 
     const categoryCreated = await Category.create({ name, url, description });
     return res.json(categoryCreated);

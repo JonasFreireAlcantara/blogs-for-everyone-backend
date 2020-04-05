@@ -7,6 +7,7 @@ const errors = () => (err, req, res, next) => {
     402: 'Payment Required',
     403: 'Forbidden',
     404: 'Not Found',
+    409: 'Conflict',
   }[statusCode];
 
   if (!error) {

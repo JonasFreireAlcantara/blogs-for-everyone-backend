@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Post = require('../model/Post');
+const Category = require('../model/Category');
 
 module.exports = {
   getActualDate() {
@@ -16,8 +17,17 @@ module.exports = {
     return res.json(posts);
   },
 
-  async create(req, res) {
+  async create(req, res, next) {
     const { author, category, title, elements } = req.body;
+
+    const existentCategory = await Category.findById(category);
+
+    if (!existentCategory) {
+      return next({
+        statusCode: 404,
+        message: `Not found category with ID: ${category}`,
+      });
+    }
 
     const desiredPost = {
       postDate: module.exports.getActualDate(),
@@ -55,8 +65,6 @@ module.exports = {
 
   async remove(req, res, next) {
     const { postId } = req.params;
-
-    console.log(postId);
 
     if (!mongoose.Types.ObjectId.isValid(postId)) {
       return next({
