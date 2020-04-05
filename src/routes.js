@@ -1,6 +1,7 @@
 const express = require('express');
 const { multerUploads } = require('./middlewares/multer');
 const CategoryValidations = require('./middlewares/validations/CategoryValidations');
+const PostValidations = require('./middlewares/validations/PostValidations');
 
 const routes = express.Router();
 
@@ -10,7 +11,7 @@ const ImageController = require('./controller/ImageController');
 
 routes.get('/posts', PostController.index);
 routes.get('/posts/:postId', PostController.show);
-routes.post('/posts', PostController.create);
+routes.post('/posts', PostValidations.create, PostController.create);
 routes.delete('/posts/:postId', PostController.remove);
 
 routes.get('/categories', CategoryController.index);
