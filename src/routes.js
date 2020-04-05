@@ -18,6 +18,7 @@ routes.get('/categories', CategoryController.index);
 routes.get('/categories/:categoryUrl', CategoryController.show);
 routes.get('/categories/posts/:categoryUrl', CategoryController.findPostsOfCategory);
 routes.post('/categories', CategoryValidations.create, CategoryController.create);
+routes.delete('/categories/:categoryUrl', CategoryController.delete);
 
 routes.post('/image', multerUploads, ImageController.upload);
 

@@ -15,7 +15,7 @@ module.exports = {
     if (!category) {
       return next({
         statusCode: 404,
-        message: 'error in CategoryController',
+        message: 'Category not found',
       });
     }
 
@@ -45,5 +45,22 @@ module.exports = {
 
     const categoryCreated = await Category.create({ name, url, description });
     return res.json(categoryCreated);
+  },
+
+  async delete(req, res, next) {
+    const { categoryUrl } = req.params;
+
+    const category = await Category.findOne({ url: categoryUrl });
+
+    if (!category) {
+      return next({
+        statusCode: 404,
+        message: 'Category not found',
+      });
+    }
+
+    await Category.findByIdAndDelete(category._id);
+
+    return res.status(204).send();
   },
 };
