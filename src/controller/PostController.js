@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Post = require('../model/Post');
 const Category = require('../model/Category');
 
+const PAGE_SIZE = 5;
+
 module.exports = {
   getActualDate() {
     const today = new Date();
@@ -13,7 +15,15 @@ module.exports = {
   },
 
   async index(req, res) {
-    const posts = await Post.find();
+    const { page = 1 } = req.query;
+
+    const posts = await Post.find()
+      .skip((page - 1) * PAGE_SIZE)
+      .limit(PAGE_SIZE);
+
+    const count = await Post.countDocuments();
+
+    res.header('X-Total-Count', count);
     return res.json(posts);
   },
 

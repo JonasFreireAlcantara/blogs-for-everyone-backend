@@ -1,5 +1,11 @@
 const { celebrate, Segments, Joi } = require('celebrate');
 
+const index = celebrate({
+  [Segments.QUERY]: Joi.object().keys({
+    page: Joi.number(),
+  }),
+});
+
 const create = celebrate({
   [Segments.BODY]: Joi.object().keys({
     author: Joi.string().required(),
@@ -16,5 +22,6 @@ const create = celebrate({
 });
 
 module.exports = {
+  index,
   create,
 };

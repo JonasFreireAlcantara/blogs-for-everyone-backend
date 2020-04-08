@@ -9,7 +9,7 @@ const PostController = require('./controller/PostController');
 const CategoryController = require('./controller/CategoryController');
 const ImageController = require('./controller/ImageController');
 
-routes.get('/posts', PostController.index);
+routes.get('/posts', PostValidations.index, PostController.index);
 routes.get('/posts/:postId', PostController.show);
 routes.post('/posts', PostValidations.create, PostController.create);
 routes.delete('/posts/:postId', PostController.remove);
