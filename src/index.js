@@ -30,7 +30,11 @@ mongoose.connection.once('open', () => {
 });
 
 // Generic middlewares of server
-app.use(cors());
+app.use(
+  cors({
+    exposedHeaders: ['X-Total-Count'],
+  })
+);
 app.use(express.json());
 app.use(cloudinaryConfig);
 
